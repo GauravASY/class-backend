@@ -1,0 +1,100 @@
+/* ── Cuisine Selector ──────────────────────────────────── */
+.cuisine-section__title {
+    text-align: center;
+    margin-bottom: var(--space-sm);
+}
+
+.cuisine-section__desc {
+    text-align: center;
+    color: var(--color-espresso-light);
+    margin: 0 auto var(--space-xl);
+    font-size: 1.05rem;
+}
+
+/* Grid */
+.cuisine-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+}
+
+/* Card */
+.cuisine-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-lg) var(--space-md);
+    background: var(--color-cream);
+    border: 2px solid transparent;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-medium);
+    box-shadow: var(--glow-warm);
+    font-family: var(--font-body);
+    text-align: center;
+}
+
+.cuisine-card:hover {
+    transform: scale(1.04);
+    border-color: rgba(193, 68, 14, 0.2);
+    box-shadow: var(--glow-warm-lg);
+}
+
+/* Active State */
+.cuisine-card--active {
+    border-color: var(--color-terracotta);
+    background: var(--color-warm-white);
+    box-shadow: var(--glow-terracotta);
+    transform: scale(1.04);
+}
+
+.cuisine-card--active:hover {
+    box-shadow: var(--glow-terracotta-lg);
+}
+
+/* Card Elements */
+.cuisine-card__emoji {
+    font-size: 2rem;
+    line-height: 1;
+    transition: transform var(--transition-fast);
+}
+
+.cuisine-card:hover .cuisine-card__emoji {
+    transform: scale(1.1);
+}
+
+.cuisine-card__name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-espresso);
+}
+
+.cuisine-card__desc {
+    font-size: 0.78rem;
+    color: var(--color-espresso-light);
+    opacity: 0.7;
+    line-height: 1.3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cuisine-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-sm);
+    }
+
+    .cuisine-card {
+        padding: var(--space-md) var(--space-sm);
+    }
+
+    .cuisine-card__emoji {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .cuisine-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

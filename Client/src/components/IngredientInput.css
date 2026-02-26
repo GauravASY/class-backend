@@ -1,0 +1,129 @@
+/* ── Ingredient Input Section ──────────────────────────── */
+.ingredient-section__title {
+    text-align: center;
+    margin-bottom: var(--space-sm);
+    color: var(--color-espresso);
+}
+
+.ingredient-section__desc {
+    text-align: center;
+    color: var(--color-espresso-light);
+    margin: 0 auto var(--space-xl);
+    font-size: 1.05rem;
+}
+
+/* Input Container */
+.ingredient-input {
+    background: var(--color-cream);
+    border: 2px solid transparent;
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    cursor: text;
+    transition: all var(--transition-fast);
+    box-shadow: var(--glow-warm);
+    position: relative;
+}
+
+.ingredient-input:hover {
+    border-color: rgba(107, 124, 63, 0.25);
+}
+
+.ingredient-input:focus-within {
+    border-color: var(--color-olive);
+    box-shadow: 0 0 0 3px rgba(107, 124, 63, 0.12);
+}
+
+/* Chips Area */
+.ingredient-input__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+/* Single Chip */
+.ingredient-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: linear-gradient(135deg, var(--color-olive), var(--color-olive-dark));
+    color: var(--color-cream);
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 0.88rem;
+    font-weight: 500;
+    animation: chipEnter 0.25s var(--ease-out-soft) both;
+    transition: all var(--transition-fast);
+    user-select: none;
+}
+
+.ingredient-chip:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, var(--color-terracotta), var(--color-terracotta-dark));
+}
+
+.ingredient-chip__text {
+    text-transform: capitalize;
+}
+
+.ingredient-chip__remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: inherit;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    padding: 0;
+}
+
+.ingredient-chip__remove:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Text Input */
+.ingredient-input__field {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-espresso);
+    flex: 1;
+    min-width: 160px;
+    padding: 6px 4px;
+}
+
+.ingredient-input__field::placeholder {
+    color: var(--color-espresso-light);
+    opacity: 0.5;
+    font-style: italic;
+}
+
+.ingredient-input__field:disabled {
+    cursor: not-allowed;
+}
+
+/* Count Badge */
+.ingredient-input__count {
+    position: absolute;
+    top: var(--space-sm);
+    right: var(--space-md);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-olive);
+    opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ingredient-input {
+        padding: var(--space-sm) var(--space-md);
+    }
+}

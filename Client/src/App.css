@@ -1,0 +1,21 @@
+/* ── App Layout ────────────────────────────────────────── */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app__main {
+  flex: 1;
+}
+
+/* Footer */
+.app__footer {
+  text-align: center;
+  padding: var(--space-xl) var(--space-lg);
+  color: var(--color-espresso-light);
+  font-size: 0.85rem;
+  opacity: 0.6;
+  border-top: 1px solid var(--color-parchment-dark);
+  margin-top: var(--space-2xl);
+}

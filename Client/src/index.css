@@ -1,0 +1,216 @@
+/* ═══════════════════════════════════════════════════════
+   Recipe Generator — Global Styles
+   Warm Organic-Minimal Design System
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Design Tokens ─────────────────────────────────────── */
+:root {
+  /* Palette */
+  --color-parchment:     #F5F0E8;
+  --color-parchment-dark:#EBE4D8;
+  --color-terracotta:    #C1440E;
+  --color-terracotta-light: #D4612F;
+  --color-terracotta-dark:  #9E3509;
+  --color-olive:         #6B7C3F;
+  --color-olive-light:   #8A9E55;
+  --color-olive-dark:    #4F5D2E;
+  --color-espresso:      #2C1A0E;
+  --color-espresso-light:#4A3628;
+  --color-cream:         #FDF9F3;
+  --color-warm-white:    #FEFCF8;
+
+  /* Warm Glows */
+  --glow-terracotta:     0 0 20px rgba(193, 68, 14, 0.2);
+  --glow-terracotta-lg:  0 4px 30px rgba(193, 68, 14, 0.25);
+  --glow-warm:           0 2px 12px rgba(44, 26, 14, 0.08);
+  --glow-warm-lg:        0 4px 24px rgba(44, 26, 14, 0.12);
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body:    'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Spacing */
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+
+  /* Radii */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+  --radius-xl:  24px;
+  --radius-pill: 50px;
+
+  /* Transitions */
+  --ease-out-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-fast:   0.2s var(--ease-out-soft);
+  --transition-medium: 0.35s var(--ease-out-soft);
+  --transition-slow:   0.6s var(--ease-out-soft);
+}
+
+/* ── Reset & Base ──────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-espresso);
+  background-color: var(--color-parchment);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Grain Texture Overlay ─────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ── Typography ────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-espresso);
+}
+
+h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
+
+p {
+  max-width: 65ch;
+  line-height: 1.7;
+}
+
+a {
+  color: var(--color-terracotta);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-terracotta-dark);
+}
+
+/* ── Layout Utility ────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.section {
+  padding: var(--space-3xl) 0;
+}
+
+/* ── Animations ────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes chipEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(193, 68, 14, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(193, 68, 14, 0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+@keyframes stirRotate {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(15deg); }
+  50%  { transform: rotate(0deg); }
+  75%  { transform: rotate(-15deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes dotPulse {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40%           { transform: scale(1);   opacity: 1; }
+}
+
+/* ── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-parchment-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-espresso-light);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-espresso);
+}
+
+/* ── Selection ─────────────────────────────────────────── */
+::selection {
+  background: rgba(193, 68, 14, 0.15);
+  color: var(--color-espresso);
+}
+
+/* ── Focus Styles ──────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
