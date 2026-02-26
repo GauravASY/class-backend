@@ -1,11 +1,11 @@
-# 🍽️ Recipe AI Generator
+# Recipe AI Generator
 
 An AI-powered recipe generator as a class project
 
-## 🌟 Overview
+## Overview
 Toss in your ingredients, pick a cuisine, and let our AI chef craft a beautiful, structured recipe just for you.
 
-## ✨ Features
+## Features
 - **Warm Organic-Minimal UI**: A premium, kitchen-friendly design featuring parchment textures (`#F5F0E8`), terracotta accents (`#C1440E`), and olive tones (`#6B7C3F`).
 - **Tag-Based Ingredient Input**: Easily add ingredients as pills with Enter or comma support.
 - **Cuisine Selection Grid**: Choose from 8 distinct cuisines (Indian, Chinese, Thai, Italian, and more) with hover animations and selection glows.
@@ -13,13 +13,13 @@ Toss in your ingredients, pick a cuisine, and let our AI chef craft a beautiful,
 - **Mock Fallback System**: Even without an API key, the app works out-of-the-box with cuisine-specific "chef-crafted" fallback recipes.
 - **Micro-Animations**: Floating kitchen illustrations, smooth fade-ins, and interactive scale effects.
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Frontend**: [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
 - **Styling**: Vanilla CSS with custom design tokens
 - **Typography**: [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) (Heads) & [DM Sans](https://fonts.google.com/specimen/DM+Sans) (Body)
 - **Icons/Graphics**: Custom-designed SVG illustrations
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/) (v18 or higher)
