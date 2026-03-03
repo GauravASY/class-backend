@@ -4,6 +4,11 @@ router = APIRouter()
 
 @router.post("/login")
 async def login(req: Request):
+    """
+    Handles the POST request to the /login endpoint.
+    Extracts email and password from request body
+    and validates user credentials.
+    """
 
     data = await req.json()
 
