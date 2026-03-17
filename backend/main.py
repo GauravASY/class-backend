@@ -1,31 +1,43 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
+from pydantic import BaseModel
 from typing import List
-from auth import router as auth_router
+from fastapi.middleware.cors import CORSMiddleware
+from backend.auth import router as auth_router
+from backend.database import init_db
+from backend.signup import router as signup_router
 
 app = FastAPI()
-app.include_router(auth_router)
 
-class recipe():
-    cuisines: str 
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+app.include_router(auth_router)
+app.include_router(signup_router)
+
+@app.on_event("startup")
+async def startup() -> None:
+    await init_db()
+
+class RecipeRequest(BaseModel):
+    cuisines: str
     ingredients: List[str]
 
 @app.post("/")
-async def recipes_get(req: Request):
-    """
-    handles the post request to the root endpoint, extracts the ingredients and cuisines from the request body, 
-    and returns them in a dictionary format.
-    input arguments:
-    
-    """
-    data = await req.json() 
-
-    ingredients = data.get("ingredients")
-    cuisines = data.get("cuisines")
-
+async def recipes_get(payload: RecipeRequest):
     return {
-        "cuisine": cuisines,
-        "ingredients": ingredients
+        "cuisines": payload.cuisines,
+        "ingredients": payload.ingredients,
     }
-
-
-
