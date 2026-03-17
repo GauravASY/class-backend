@@ -1,37 +1,45 @@
-from fastapi import APIRouter
-from fastapi import HTTPException #used to return proper API error responses
-from pydantic import BaseModel #used so FastAPI auto parses and validates JSON
-import os #used to read environment variables for credentials
 
-router = APIRouter() 
+import hashlib
+from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
-class LoginRequest(BaseModel): #pydantic model describing expected request 
+from backend.database import get_session
+from backend.models import User
+
+router = APIRouter()
+
+class LoginRequest(BaseModel):
     email: str
     password: str
-
 @router.post("/login")
-async def login(payload: LoginRequest): #payload automatically contains request JSON
+async def login(payload: LoginRequest, session: AsyncSession = Depends(get_session)):
     """
     Handles the POST request to the /login endpoint.
     Extracts email and password from request body
     and validates user credentials.
     """
 
-    if not payload.email.strip() or not payload.password.strip(): #check if email or password is empty
-        raise HTTPException(status_code=400, detail="Email and password required") #return bad request error
+    email = payload.email.strip().lower()
+    password = payload.password.strip()
 
-    expected_email = os.getenv("AUTH_EMAIL") #read email from environment variable
-    expected_password = os.getenv("AUTH_PASSWORD") #read password from environment variable
 
-    if not expected_email or not expected_password: #check if server credentials are configured
-        raise HTTPException(
-            status_code=500,
-            detail="Server auth credentials are not configured", #server configuration error
-        )
+    if not email or not password:
+        raise HTTPException(status_code=400, detail="Email and password required")
 
-    if payload.email == expected_email and payload.password == expected_password: #validate login credentials
-        return {
-            "message": "Login successful" #successful login response
-        }
 
-    raise HTTPException(status_code=401, detail="Invalid credentials") #return unauthorized error
+    user = await session.scalar(select(User).where(User.email == email))
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+
+    password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
+    if user.password_hash != password_hash:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+
+    return {
+        "message": "Login successful",
+        "email": user.email,
+    }

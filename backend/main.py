@@ -1,41 +1,43 @@
 from fastapi import FastAPI
-from pydantic import BaseModel #used so FastAPI auto reads and validates JSON
+from pydantic import BaseModel
 from typing import List
-from fastapi.middleware.cors import CORSMiddleware #needed so frontend can call backend
-from backend.auth import router as auth_router #import auth api
-from backend.signup import router as signup_router #import signup api
+from fastapi.middleware.cors import CORSMiddleware
+from backend.auth import router as auth_router
+from backend.database import init_db
+from backend.signup import router as signup_router
 
 app = FastAPI()
 
-origins = [ #allowed frontend URLs
+origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
 
-app.add_middleware( #enable CORS so browser allows frontend→backend requests
+app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins, #only allow these URLs
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"], #allow all request types 
-    allow_headers=["*"], #allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-app.include_router(auth_router) #attach auth routes
-app.include_router(signup_router) #attach signup routes
 
-class RecipeRequest(BaseModel): #pydantic model so FastAPI auto parses request body
+app.include_router(auth_router)
+app.include_router(signup_router)
+
+@app.on_event("startup")
+async def startup() -> None:
+    await init_db()
+
+class RecipeRequest(BaseModel):
     cuisines: str
     ingredients: List[str]
 
-"""
-handles the post request to the root endpoint, extracts the ingredients and cuisines from 
-the request body, and returns them in a dictionary format.
-"""
-@app.post("/") #POST endpoint
-async def recipes_get(payload: RecipeRequest): #payload automatically contains JSON body
+@app.post("/")
+async def recipes_get(payload: RecipeRequest):
     return {
-        "cuisines": payload.cuisines, #get cuisines from request
-        "ingredients": payload.ingredients #get ingredients from request
+        "cuisines": payload.cuisines,
+        "ingredients": payload.ingredients,
     }
