@@ -6,14 +6,6 @@ An AI-powered recipe generator — a class project with a React frontend and a F
 
 Toss in your ingredients, pick a cuisine, and let our AI chef craft a beautiful, structured recipe just for you. The app features a premium kitchen-inspired UI connected to a FastAPI backend with user authentication and a Neon PostgreSQL database.
 
-## Project Structure
-
-```
-class-backend/
-├── Client/          # React + Vite frontend
-└── backend/         # FastAPI Python backend
-```
-
 ## Features
 
 - **Warm Organic-Minimal UI** — Kitchen-friendly design with parchment textures (`#F5F0E8`), terracotta accents (`#C1440E`), and olive tones (`#6B7C3F`).
@@ -34,14 +26,6 @@ class-backend/
 | Backend | [FastAPI](https://fastapi.tiangolo.com/) (Python 3.13+) |
 | Database | [Neon PostgreSQL](https://neon.tech/) via SQLAlchemy (async) |
 | ORM | SQLAlchemy 2.0 with asyncpg |
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/signup` | Register a new user |
-| `POST` | `/login` | Authenticate a user |
-| `POST` | `/` | Submit ingredients & cuisine; get a recipe |
 
 ## Getting Started
 
