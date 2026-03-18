@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import axios from 'axios';
 import Hero from './components/Hero';
 import IngredientInput from './components/IngredientInput';
 import CuisineSelector from './components/CuisineSelector';
@@ -24,10 +25,10 @@ export default function App() {
 
     try {
       // Simulate a min delay for UX smoothness
-      const [result] = await Promise.all([
-        generateRecipe(ingredients, selectedCuisine),
-        new Promise((r) => setTimeout(r, 1500)),
-      ]);
+      const result = axios.post("http://localhost:8000/recipe", {
+        ingredients,
+        cuisines: selectedCuisine,
+      });
       setRecipe(result);
 
       // Scroll to recipe after it renders
