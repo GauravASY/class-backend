@@ -35,8 +35,9 @@ class RecipeRequest(BaseModel):
     cuisines: str
     ingredients: List[str]
 
-@app.post("/")
+@app.post("/recipe")
 async def recipes_get(payload: RecipeRequest):
+    print(payload) #To understand the structure of the payload. Check and extract accordingly
     return {
         "cuisines": payload.cuisines,
         "ingredients": payload.ingredients,
