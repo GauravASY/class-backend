@@ -2,7 +2,6 @@ import os
 from contextlib import contextmanager
 from urllib.parse import urlsplit, urlunsplit
 
-
 from dotenv import load_dotenv
 from psycopg2 import pool as psycopg2_pool
 from psycopg2.extras import RealDictCursor
