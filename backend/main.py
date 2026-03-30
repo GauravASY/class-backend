@@ -1,9 +1,9 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
-from fastapi.middleware.cors import CORSMiddleware
 from backend.auth import router as auth_router
-from backend.database import init_db
+from backend.database import close_db, init_db
 from backend.signup import router as signup_router
 
 app = FastAPI()
@@ -23,7 +23,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 app.include_router(auth_router)
 app.include_router(signup_router)
 
@@ -31,13 +30,16 @@ app.include_router(signup_router)
 async def startup() -> None:
     await init_db()
 
+@app.on_event("shutdown")
+async def shutdown() -> None:
+    await close_db()
+
 class RecipeRequest(BaseModel):
     cuisines: str
     ingredients: List[str]
 
-@app.post("/recipe")
+@app.post("/")
 async def recipes_get(payload: RecipeRequest):
-    print(payload) #To understand the structure of the payload. Check and extract accordingly
     return {
         "cuisines": payload.cuisines,
         "ingredients": payload.ingredients,
