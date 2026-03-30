@@ -35,4 +35,8 @@ venv/
 env/
 backend/test_db.py
 
+.python-version__pycache__/
+*.pyc
+.env
 .python-version
+.venv/
