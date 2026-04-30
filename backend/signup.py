@@ -1,4 +1,4 @@
-import hashlib
+import bcrypt
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -11,15 +11,18 @@ router = APIRouter()
 class SignupRequest(BaseModel):
     email: str
     password: str
+    
 @router.post("/signup")
-async def signup(payload: SignupRequest):
+def signup(payload: SignupRequest):
     email = payload.email.strip().lower()
-    password = payload.password.strip()
+    password = payload.password
 
-    if not email or not password:
+
+    if not email or not password.strip():
         raise HTTPException(status_code=400, detail="Email and password required")
 
-    password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
+
+    password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
     with get_dict_cursor() as (connection, cursor):
         try:
             cursor.execute(
