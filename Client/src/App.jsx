@@ -1,3 +1,5 @@
+
+import { generateRecipe } from './services/recipeService';
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import Hero from './components/Hero';
@@ -5,7 +7,6 @@ import IngredientInput from './components/IngredientInput';
 import CuisineSelector from './components/CuisineSelector';
 import GenerateButton from './components/GenerateButton';
 import RecipeCard from './components/RecipeCard';
-import { generateRecipe } from './services/recipeService';
 import './App.css';
 
 export default function App() {
@@ -24,17 +25,25 @@ export default function App() {
     setRecipe(null);
 
     try {
-      // Simulate a min delay for UX smoothness
-      const result = axios.post("http://localhost:8000/recipe", {
+      const response = await axios.post("http://localhost:8001/recipe", {
         ingredients,
         cuisines: selectedCuisine,
       });
-      setRecipe(result);
 
-      // Scroll to recipe after it renders
+      const recipeText = response.data.recipe;
+
+      setRecipe({
+        name: "Generated Recipe",
+        cuisine: selectedCuisine,
+        description: recipeText,
+        ingredients: ingredients,
+        steps: [],
+      });
+
       setTimeout(() => {
         recipeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 100);
+
     } catch (err) {
       console.error('Failed to generate recipe:', err);
     } finally {

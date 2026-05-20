@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from psycopg2.errors import UniqueViolation
 
-from backend.database import get_dict_cursor
+from database import get_dict_cursor
 
 router = APIRouter()
 
